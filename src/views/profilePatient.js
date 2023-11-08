@@ -16,7 +16,10 @@ import {
   Col,
 } from "reactstrap";
 
-function profilePatient() {
+function ProfilePatient() {
+  const param = new URLSearchParams(window.location.search)
+  const id = param.get('id')
+  console.log(param.get);
   return (
     <>
       <div className="content">
@@ -50,16 +53,7 @@ function profilePatient() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label>Họ và tên</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
+                 
                     <Col className="pl-md-1" md="6">
                       <FormGroup>
                         <label>Số điện thoại</label>
@@ -72,26 +66,17 @@ function profilePatient() {
                     </Col>
                     
                   </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Địa chỉ</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                
                   <Row>
                     <Col md="12">
                       <FormGroup>
                         <label>Vai trò</label>
                         <select class="form-select" aria-label="Default select example">
 
-  <option value="1">Hướng dẫn viên</option>
-  <option value="2">Khách hàng</option>
+  <option value="1">Y tá</option>
+  <option value="2">Bác sĩ</option>
+
+  <option value="3">Bệnh nhân</option>
 
 </select>
                       </FormGroup>
@@ -113,4 +98,4 @@ function profilePatient() {
   );
 }
 
-export default profilePatient;
+export default ProfilePatient;
