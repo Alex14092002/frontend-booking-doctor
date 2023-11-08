@@ -1,6 +1,7 @@
 
-import React from "react";
+
 import { Link } from "react-router-dom";
+import { useState , useEffect } from "react";
 
 import {
   Card,
@@ -12,10 +13,20 @@ import {
   Col,
 } from "reactstrap";
 
-const params = new URLSearchParams(window.location.search)
 
-console.log(params);
 function Tables({type}) {
+  const [listdata , setListdata] = useState([])
+  console.log(listdata);
+
+  useEffect(() => {
+    const getData = async () =>{
+      const res = await fetch(`http://localhost:8000/api/user`)
+      const data = await res.json()
+      
+      setListdata(data)
+    }
+    getData()
+  }, []);
   return (
     <>
       <div className="content">
@@ -36,17 +47,30 @@ function Tables({type}) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">
-                        <Link to='/edit' className='btn btn-primary mx-2'>Sửa</Link>
-                        <button className='btn btn-danger mx-2'>Xoá</button>
-                      </td>
-                    </tr>
-                 
+                   
+                      { listdata && (
+                        listdata.map(( value , id ) =>{
+                          console.log(value);
+                          return(
+                            <>
+                               <tr>
+                          <td>{value.username}</td>
+                          <td>{value.email}</td>
+                          <td>{value.phone}</td>
+                          <td className="text-center">
+                            <Link to='/edit' className='btn btn-primary mx-2'>Sửa</Link>
+                            <button className='btn btn-danger mx-2'>Xoá</button>
+                          </td>
+                        </tr>
+                            </>
+                          )
+                         
+                        })
+                        
+                      )
 
+                      }
+                    
                   </tbody>
                 </Table>
               </CardBody>
