@@ -55,7 +55,7 @@ function Tables({ type }) {
                               <td>{value.role}</td>
                               <td className="text-center">
                                 <Link
-                                  to={`/uploadPatient/${id}`}
+                                  to={`/uploadPatient/${value._id}`}
                                   className="btn btn-primary mx-2"
                                 >
                                   Sửa
