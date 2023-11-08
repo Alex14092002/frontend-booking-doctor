@@ -2,7 +2,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// reactstrap components
 import {
   Card,
   CardHeader,
@@ -13,6 +12,9 @@ import {
   Col,
 } from "reactstrap";
 
+const params = new URLSearchParams(window.location.search)
+
+console.log(params);
 function Tables({type}) {
   return (
     <>

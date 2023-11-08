@@ -4,7 +4,7 @@ import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import TableList from "views/TableList.js";
+import Patient from "views/Patient.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import ManagenTour from "./views/ManagenTour"
@@ -19,23 +19,23 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/user",
+    path: "/patient",
     name: "Quản lý bệnh nhân",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
-    component: <TableList type='Bệnh nhân'/>,
+    component: <Patient/>,
     layout: "/admin",
   },
   {
-    path: "/huongdanvien",
+    path: "/yta",
     name: "Quản lý y tá",
     rtlName: "خرائط",
     icon: "tim-icons icon-pin",
-    component: <TableList type='Y tá'/>,
+    component: <Patient type='Y tá'/>,
     layout: "/admin",
   },
   {
-    path: "/tour",
+    path: "/booking",
     name: "Quản lý lịch khám",
     rtlName: "إخطارات",
     icon: "tim-icons icon-bell-55",
@@ -55,7 +55,7 @@ var routes = [
   //   name: "Table List",
   //   rtlName: "قائمة الجدول",
   //   icon: "tim-icons icon-puzzle-10",
-  //   component: <TableList />,
+  //   component: <Patient />,
   //   layout: "/admin",
   // },
   // {
