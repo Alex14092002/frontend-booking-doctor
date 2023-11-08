@@ -16,7 +16,7 @@ import {
   Col,
 } from "reactstrap";
 
-function editTour() {
+function profilePatient() {
   return (
     <>
       <div className="content">
@@ -113,4 +113,4 @@ function editTour() {
   );
 }
 
-export default editTour;
+export default profilePatient;
