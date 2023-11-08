@@ -42,7 +42,7 @@ function Tables({type}) {
                     <tr>
                       <th>Họ và tên</th>
                       <th>Email</th>
-                      <th>Số điện thoại</th>
+                      <th>Vai trò</th>
                       <th className="text-center">Hành động</th>
                     </tr>
                   </thead>
@@ -56,9 +56,9 @@ function Tables({type}) {
                                <tr>
                           <td>{value.username}</td>
                           <td>{value.email}</td>
-                          <td>{value.phone}</td>
+                          <td>{value.role}</td>
                           <td className="text-center">
-                            <Link to='/edit' className='btn btn-primary mx-2'>Sửa</Link>
+                            <Link to={`/uploadPatient/id`} className='btn btn-primary mx-2'>Sửa</Link>
                             <button className='btn btn-danger mx-2'>Xoá</button>
                           </td>
                         </tr>
