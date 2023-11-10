@@ -12,36 +12,34 @@ import {
 } from "reactstrap";
 
 function Tables({ type }) {
-
   const Delete = async (id) => {
     // Create the DELETE request
     const request = new Request(
-      `http://localhost:8000/api/user/delete/${id}`,
+      `http://localhost:8000/api/medicine/delete/${id}`,
       {
         method: "DELETE",
       }
     );
-  
+
     // Send the request
     const response = await fetch(request);
-  
+
     // Check the response status
     if (response.ok) {
       // Show a success message
-      alert("Xóa người dùng thành công!");
+      alert("Xóa thuốc thành công!");
     } else {
       // Show an error message
       alert("Có lỗi xảy ra!");
     }
   };
-  
 
   const [listdata, setListdata] = useState([]);
   console.log(listdata);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`http://localhost:8000/api/user`);
+      const res = await fetch(`http://localhost:8000/api/medicine`);
       const data = await res.json();
 
       setListdata(data);
@@ -49,10 +47,17 @@ function Tables({ type }) {
     getData();
   }, [listdata]);
 
-
   return (
     <>
       <div className="content">
+        <Link to='/addmedicine'
+         
+          class="btn btn-primary"
+        >
+          Thêm thuốc
+        </Link>
+
+     
         <Row>
           <Col md="12">
             <Card>
@@ -63,9 +68,9 @@ function Tables({ type }) {
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Tên tài khoản</th>
-                      <th>Email</th>
-                      <th>Vai trò</th>
+                      <th>Tên thuốc</th>
+                      <th>Giá thuốc</th>
+                      <th>Ảnh</th>
                       <th className="text-center">Hành động</th>
                     </tr>
                   </thead>
@@ -76,17 +81,25 @@ function Tables({ type }) {
                         return (
                           <>
                             <tr>
-                              <td>{value.username}</td>
-                              <td>{value.email}</td>
-                              <td>{value.role}</td>
+                              <td>{value.name}</td>
+                              <td>{value.price}</td>
+                              <td>
+                                <img
+                                  src={`http://localhost:8000/${value.image}`}
+                                  width="150px"
+                                />
+                              </td>
                               <td className="text-center">
                                 <Link
-                                  to={`/uploadPatient/${value._id}`}
+                                  to={`/updateMedicine/${value._id}`}
                                   className="btn btn-primary mx-2"
                                 >
                                   Sửa
                                 </Link>
-                                <button onClick={() => Delete(value._id)} className="btn btn-danger mx-2">
+                                <button
+                                  onClick={() => Delete(value._id)}
+                                  className="btn btn-danger mx-2"
+                                >
                                   Xoá
                                 </button>
                               </td>

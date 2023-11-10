@@ -13,12 +13,12 @@ import {
 
 function Tables({ type }) {
 
-  const Delete = async (id) => {
+  const Update = async (id) => {
     // Create the DELETE request
     const request = new Request(
-      `http://localhost:8000/api/user/delete/${id}`,
+      `http://localhost:8000/api/nurse/medical/update/${id}`,
       {
-        method: "DELETE",
+        method: "PUT",
       }
     );
   
@@ -28,7 +28,7 @@ function Tables({ type }) {
     // Check the response status
     if (response.ok) {
       // Show a success message
-      alert("Xóa người dùng thành công!");
+      alert("Xóa đơn thành công!");
     } else {
       // Show an error message
       alert("Có lỗi xảy ra!");
@@ -41,7 +41,7 @@ function Tables({ type }) {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`http://localhost:8000/api/user`);
+      const res = await fetch(`http://localhost:8000/api/nurse/medical`);
       const data = await res.json();
 
       setListdata(data);
@@ -63,10 +63,11 @@ function Tables({ type }) {
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Tên tài khoản</th>
-                      <th>Email</th>
-                      <th>Vai trò</th>
-                      <th className="text-center">Hành động</th>
+                      <th>Id khách hàng</th>
+                      <th>Triệu chứng</th>
+                      <th>Trạng thái</th>
+                      <th>Ngày đặt</th>
+                    
                     </tr>
                   </thead>
                   <tbody>
@@ -76,20 +77,11 @@ function Tables({ type }) {
                         return (
                           <>
                             <tr>
-                              <td>{value.username}</td>
-                              <td>{value.email}</td>
-                              <td>{value.role}</td>
-                              <td className="text-center">
-                                <Link
-                                  to={`/uploadPatient/${value._id}`}
-                                  className="btn btn-primary mx-2"
-                                >
-                                  Sửa
-                                </Link>
-                                <button onClick={() => Delete(value._id)} className="btn btn-danger mx-2">
-                                  Xoá
-                                </button>
-                              </td>
+                              <td>{value.idPatient}</td>
+                              <td>{value.symptom}</td>
+                              <td>{value.status ? 'Đã duyệt' : 'Đang chờ'}</td>
+                              <td>{value.createdAt}</td>
+                            
                             </tr>
                           </>
                         );

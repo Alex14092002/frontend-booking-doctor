@@ -7,8 +7,9 @@ import Rtl from "views/Rtl.js";
 import Patient from "views/Patient.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
-import ManagenTour from "./views/ManagenTour"
+import Lichkham from "./views/Lichkham.js"
 import Order from "./views/Order"
+import Medicine from './views/Medicine'
 var routes = [
   {
     path: "/dashboard",
@@ -20,18 +21,18 @@ var routes = [
   },
   {
     path: "/patient",
-    name: "Quản lý bệnh nhân",
+    name: "Quản lý tài khoản",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
     component: <Patient/>,
     layout: "/admin",
   },
   {
-    path: "/yta",
-    name: "Quản lý y tá",
+    path: "/thuoc",
+    name: "Quản lý Thuốc",
     rtlName: "خرائط",
     icon: "tim-icons icon-pin",
-    component: <Patient type='Y tá'/>,
+    component: <Medicine/>,
     layout: "/admin",
   },
   {
@@ -39,7 +40,7 @@ var routes = [
     name: "Quản lý lịch khám",
     rtlName: "إخطارات",
     icon: "tim-icons icon-bell-55",
-    component: <ManagenTour type='Lịch khám bệnh'/>,
+    component: <Lichkham type='Lịch khám bệnh'/>,
     layout: "/admin",
   },
   {

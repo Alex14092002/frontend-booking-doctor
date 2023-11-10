@@ -14,6 +14,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
 import ProfilePatient from "views/ProfilePatient";
+import Addmedicine from "views/AddMedicine";
+import Editmedicine from "views/EditMedicine";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -28,7 +30,8 @@ root.render(
             element={<Navigate to="/admin/dashboard" replace />}
           />
            <Route path="/uploadPatient/:id" element={<ProfilePatient />} />
-          
+            <Route path='/addMedicine' element={<Addmedicine/>} />
+            <Route path='/updateMedicine/:id' element={<Editmedicine/>} />
         </Routes>
       </BrowserRouter>
     </BackgroundColorWrapper>
