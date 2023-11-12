@@ -25,6 +25,9 @@ function Editmedicine() {
     price: "",
     image: "",
   });
+  const [serverImage, setServerImage] = useState(""); // Ảnh từ server
+const [selectedImage, setSelectedImage] = useState(""); // Ảnh từ input file
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,7 +57,8 @@ function Editmedicine() {
       );
       const dataAPI = await res.json();
       setData(dataAPI);
-      console.log(dataAPI);
+      setServerImage(`http://localhost:8000/` + dataAPI.image);
+     
     };
 
     getData();
@@ -108,16 +112,21 @@ function Editmedicine() {
                         </Col>
 
                         <Col className="pl-md-1" md="4">
-                          <label htmlFor="exampleInputEmail1">Ảnh thuốc</label>
-                          <input
-                           
-                            name="image"
-                            placeholder="Nhập file"
-                            type="file"
-                            onChange={handleInputChange}
-                          />
-                          <img  src={`http://localhost:8000/` + data.image} width='100px'/>
-                        </Col>
+  <label htmlFor="exampleInputEmail1">Ảnh thuốc</label>
+  <input
+    name="image"
+    placeholder="Nhập file"
+    type="file"
+    onChange={(e) => {
+      handleInputChange(e);
+      setSelectedImage(URL.createObjectURL(e.target.files[0]));
+    }}
+  />
+  {(selectedImage || serverImage) && (
+    <img src={selectedImage || serverImage} width='100px' alt="Medicine Preview" />
+  )}
+</Col>
+
                       </Row>
 
                       <button
