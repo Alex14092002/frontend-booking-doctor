@@ -1,24 +1,10 @@
-/*!
 
-=========================================================
-* Black Dashboard React v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-
+import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -38,11 +24,26 @@ import {
   NavbarToggler,
   ModalHeader,
 } from "reactstrap";
+import { useState , useEffect } from "react";
 
 function AdminNavbar(props) {
+  const id = localStorage.getItem('id')
+  
+  console.log(id);
+  const navigate = useNavigate();
+  const [data , setData] = useState(null)
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+  useEffect(()=>{
+    const getData = async ()  =>{
+      const res = await fetch(`http://localhost:8000/api/user/${id}`)
+      const dataAPI = await res.json()
+      console.log(dataAPI);
+      setData(dataAPI)
+    }
+    getData()
+  },[])
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     // Specify how to clean up after this effect:
@@ -71,6 +72,11 @@ function AdminNavbar(props) {
   const toggleModalSearch = () => {
     setmodalSearch(!modalSearch);
   };
+
+  const logOut = () => {
+    localStorage.removeItem('id')
+    navigate(`/`);
+  }
   return (
     <>
       <Navbar className={classNames("navbar-absolute", color)} expand="lg">
@@ -98,77 +104,38 @@ function AdminNavbar(props) {
           </NavbarToggler>
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
-              <InputGroup className="search-bar">
-                <Button color="link" onClick={toggleModalSearch}>
-                  <i className="tim-icons icon-zoom-split" />
-                  <span className="d-lg-none d-md-block">Search</span>
-                </Button>
-              </InputGroup>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  data-toggle="dropdown"
-                  nav
-                >
-                  <div className="notification d-none d-lg-block d-xl-block" />
-                  <i className="tim-icons icon-sound-wave" />
-                  <p className="d-lg-none">Notifications</p>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Mike John responded to your email
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      You have 5 more tasks
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Your friend Michael is in town
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Another notification
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Another one
-                    </DropdownItem>
-                  </NavLink>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  nav
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <div className="photo">
-                    <img alt="..." src={require("assets/img/anime3.png")} />
-                  </div>
-                  <b className="caret d-none d-lg-block d-xl-block" />
-                  <p className="d-lg-none">Log out</p>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Profile</DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Settings</DropdownItem>
-                  </NavLink>
-                  <DropdownItem divider tag="li" />
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
-                  </NavLink>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+             
+            
+              { data && (
+                 <UncontrolledDropdown nav>
+                 <DropdownToggle
+                   caret
+                   color="default"
+                   nav
+                   onClick={(e) => e.preventDefault()}
+                 >
+                   <div className="photo">
+                     <img alt="..." src={`http://localhost:8000/`+ data.avatar} />
+                   </div>
+                   <b className="caret d-none d-lg-block d-xl-block" />
+                   <p className="d-lg-none">Đăng xuất</p>
+                 </DropdownToggle>
+                 <DropdownMenu className="dropdown-navbar" right tag="ul">
+                   <NavLink tag="li">
+                    
+                        <Link className='text-black-50' to='/profileadmin'>Profile</Link>
+                     
+                   </NavLink>
+                  
+                   <DropdownItem divider tag="li" />
+                   <NavLink tag="li">
+                     <DropdownItem onClick={()=>logOut()} className="nav-item">Đăng xuất</DropdownItem>
+                   </NavLink>
+                 </DropdownMenu>
+               </UncontrolledDropdown>
+              )
+                
+              }
               <li className="separator d-lg-none" />
             </Nav>
           </Collapse>

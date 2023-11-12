@@ -14,7 +14,6 @@ var routes = [
   {
     path: "/dashboard",
     name: "Trang chủ",
-    rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: <Dashboard />,
     layout: "/admin",

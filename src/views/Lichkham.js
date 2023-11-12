@@ -47,9 +47,10 @@ function Tables({ type }) {
       setListdata(data);
     };
     getData();
-  }, [listdata]);
+  }, []);
 
 
+ 
   return (
     <>
       <div className="content">
@@ -63,7 +64,7 @@ function Tables({ type }) {
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Id khách hàng</th>
+                      <th>Tên khách hàng</th>
                       <th>Triệu chứng</th>
                       <th>Trạng thái</th>
                       <th>Ngày đặt</th>

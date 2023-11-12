@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
 // reactstrap components
 import {
   Button,
@@ -18,7 +18,7 @@ import {
 
 function Addmedicine() {
   const [successMessage, setSuccessMessage] = useState('');
-  
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -32,6 +32,10 @@ function Addmedicine() {
 
       if (response.ok) {
         setSuccessMessage('Thêm thuốc thành công!');
+        setTimeout(()=>{
+          navigate(`/admin/thuoc`);
+        },1000)
+        
       } else {
         console.error('Lỗi khi thêm thuốc:', response.statusText);
       }
