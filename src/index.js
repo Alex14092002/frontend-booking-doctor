@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -16,21 +15,43 @@ import Addmedicine from "views/AddMedicine";
 import Editmedicine from "views/EditMedicine";
 import Dashboard from "views/Dashboard";
 import ProfileAdmin from "views/ProfileAdmin";
+
+// Kiểm tra xem có ID trong localStorage hay không
+const hasIdInLocalStorage = () => {
+  const userId = localStorage.getItem("id");
+  return !!userId; // Chuyển đổi thành giá trị boolean
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ThemeContextWrapper>
     <BackgroundColorWrapper>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/admin/*" element={<AdminLayout />} />
-        <Route path='/profileadmin' element={<ProfileAdmin/>}/>
-          
-        <Route path="/uploadPatient/:id" element={<ProfilePatient/>}/>
-        <Route path="/updateMedicine/:id" element={<Editmedicine/>}/>
-        <Route path="/addmedicine" element={<Addmedicine/>}/>
-        
+        <Routes>
+          {/* Route cho trang đăng nhập */}
+          <Route
+            path="/"
+            element={
+              hasIdInLocalStorage() ? (
+                <Navigate to="/admin/dashboard" />
+              ) : (
+                <Login />
+              )
+            }
+          />
+          {/* Route cho trang admin */}
+          <Route
+            path="/admin/*"
+            element={
+              hasIdInLocalStorage() ? <AdminLayout /> : <Navigate to="/" />
+            }
+          />
+
+          <Route path="/profileadmin" element={<ProfileAdmin />} />
+          <Route path="/uploadPatient/:id" element={<ProfilePatient />} />
+          <Route path="/updateMedicine/:id" element={<Editmedicine />} />
+          <Route path="/addmedicine" element={<Addmedicine />} />
         </Routes>
       </BrowserRouter>
     </BackgroundColorWrapper>

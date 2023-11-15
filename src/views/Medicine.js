@@ -26,7 +26,7 @@ function Tables({ type }) {
 
     // Check the response status
     if (response.ok) {
-      // Show a success message
+      setIsDelete(!isDelete);
       alert("Xóa thuốc thành công!");
     } else {
       // Show an error message
@@ -35,7 +35,8 @@ function Tables({ type }) {
   };
 
   const [listdata, setListdata] = useState([]);
-  console.log(listdata);
+  const [isDelete, setIsDelete] = useState(false);
+
 
   useEffect(() => {
     const getData = async () => {
@@ -45,7 +46,7 @@ function Tables({ type }) {
       setListdata(data);
     };
     getData();
-  }, [listdata]);
+  }, [isDelete]);
 
   return (
     <>

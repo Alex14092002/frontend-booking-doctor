@@ -26,9 +26,9 @@ const Login = () => {
       const dataAdmin = await response.json()
       if(dataAdmin.admin){
         localStorage.setItem('id' , dataAdmin._id)
-        navigate(`/admin/dashboard`);
+        window.location.href = '/admin/dashboard';
       }
-     
+      
      
     } catch (error) {
       console.error('Error during login:', error.message);

@@ -75,7 +75,7 @@ function AdminNavbar(props) {
 
   const logOut = () => {
     localStorage.removeItem('id')
-    navigate(`/`);
+    window.location.href = '/';
   }
   return (
     <>

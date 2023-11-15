@@ -1,55 +1,44 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Card, CardHeader, CardBody, CardTitle, Table, Row, Col } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Table,
-  Row,
-  Col,
-} from "reactstrap";
 
 function Tables({ type }) {
-
+  <ToastContainer />
   const Delete = async (id) => {
-    // Create the DELETE request
-    const request = new Request(
-      `http://localhost:8000/api/user/delete/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
-  
-    // Send the request
+    const request = new Request(`http://localhost:8000/api/user/delete/${id}`, {
+      method: "DELETE",
+    });
+
     const response = await fetch(request);
-  
-    // Check the response status
+
     if (response.ok) {
-      // Show a success message
+      // Thay đổi trạng thái để trigger useEffect
+      setIsDelete(!isDelete);
       alert("Xóa người dùng thành công!");
+
+          toast.success("đặt thành công !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
     } else {
-      // Show an error message
       alert("Có lỗi xảy ra!");
     }
   };
-  
 
   const [listdata, setListdata] = useState([]);
-  console.log(listdata);
+  const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`http://localhost:8000/api/user`);
       const data = await res.json();
-
       setListdata(data);
     };
+    
     getData();
-  }, [listdata]);
-
-
+  }, [isDelete]);
   return (
     <>
       <div className="content">
@@ -72,26 +61,20 @@ function Tables({ type }) {
                   <tbody>
                     {listdata &&
                       listdata.map((value, id) => {
-                        console.log(value);
                         return (
-                          <>
-                            <tr>
-                              <td>{value.username}</td>
-                              <td>{value.email}</td>
-                              <td>{value.role}</td>
-                              <td className="text-center">
-                                <Link
-                                  to={`/uploadPatient/${value._id}`}
-                                  className="btn btn-primary mx-2"
-                                >
-                                  Sửa
-                                </Link>
-                                <button onClick={() => Delete(value._id)} className="btn btn-danger mx-2">
-                                  Xoá
-                                </button>
-                              </td>
-                            </tr>
-                          </>
+                          <tr key={id}>
+                            <td>{value.username}</td>
+                            <td>{value.email}</td>
+                            <td>{value.role}</td>
+                            <td className="text-center">
+                              <Link to={`/uploadPatient/${value._id}`} className="btn btn-primary mx-2">
+                                Sửa
+                              </Link>
+                              <button onClick={() => Delete(value._id)} className="btn btn-danger mx-2">
+                                Xoá
+                              </button>
+                            </td>
+                          </tr>
                         );
                       })}
                   </tbody>
@@ -104,4 +87,5 @@ function Tables({ type }) {
     </>
   );
 }
+
 export default Tables;
