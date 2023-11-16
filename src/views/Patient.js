@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 function Tables({ type }) {
-  <ToastContainer />
+ 
   const Delete = async (id) => {
     const request = new Request(`http://localhost:8000/api/user/delete/${id}`, {
       method: "DELETE",
@@ -17,11 +17,10 @@ function Tables({ type }) {
     if (response.ok) {
       // Thay đổi trạng thái để trigger useEffect
       setIsDelete(!isDelete);
-      alert("Xóa người dùng thành công!");
-
-          toast.success("đặt thành công !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+      toast.success("Xoá người dùng thành công", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+         
     } else {
       alert("Có lỗi xảy ra!");
     }
@@ -41,6 +40,7 @@ function Tables({ type }) {
   }, [isDelete]);
   return (
     <>
+     <ToastContainer />
       <div className="content">
         <Row>
           <Col md="12">

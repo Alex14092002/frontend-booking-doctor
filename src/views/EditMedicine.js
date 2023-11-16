@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -74,8 +74,20 @@ function Editmedicine() {
     }));
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); // This navigates back one step in the history
+  };
+
+
+
   return (
     <>
+      <button className="btn btn-darker" onClick={goBack}>
+      Quay lại
+    </button>
+
       <div className="content">
         <Row>
           <Col md="12">

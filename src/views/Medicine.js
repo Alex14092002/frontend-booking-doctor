@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 import {
   Card,
@@ -27,7 +30,9 @@ function Tables({ type }) {
     // Check the response status
     if (response.ok) {
       setIsDelete(!isDelete);
-      alert("Xóa thuốc thành công!");
+      toast.success("Xoá thuốc thành công", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } else {
       // Show an error message
       alert("Có lỗi xảy ra!");
@@ -50,6 +55,7 @@ function Tables({ type }) {
 
   return (
     <>
+      <ToastContainer />
       <div className="content">
         <Link to='/addmedicine'
          
